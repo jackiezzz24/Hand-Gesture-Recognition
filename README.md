@@ -1,6 +1,6 @@
 # Hand Gesture Recognition Application 
 
-### Authors: Jiaqi Zhao, Kexuan Chen, Zhimin Liang
+Authors: Jiaqi Zhao, Kexuan Chen, Zhimin Liang
 
 ## Development Environment
 
