@@ -59,10 +59,10 @@ def main(argv):
 
             if lmList:
                 # get the index of index Finger
-                indexFinger = lmList[8][1], lmList[8][2]
-                # xVal = int(np.interp(lmList[8][1], [width // 2, width], [0, width]))
-                # yVal = int(np.interp(lmList[8][2], [150, height-150], [0, height]))
-                # indexFinger = xVal, yVal
+                # indexFinger = lmList[8][1], lmList[8][2]
+                xVal = int(np.interp(lmList[8][1], [width // 2, width], [0, width]))
+                yVal = int(np.interp(lmList[8][2], [150, height-150], [0, height]))
+                indexFinger = xVal, yVal
 
                 cx, cy = detector.getCenterIndex()
 
@@ -70,20 +70,20 @@ def main(argv):
                 if cy <= threshold:
                     # 1. left, show previous slide
                     if fingers == [1, 0, 0, 0, 0]:
-                        print("left")
+                        #print("left")
                         if imgNumber > 0:
                             buttonPressed = True
                             imgNumber -= 1
 
                     # 2. right, show next slide
                     if (fingers == [0, 0, 0, 0, 1]):
-                        print("right")
+                        #print("right")
                         if imgNumber < len(pptImages) - 1:
                             buttonPressed = True
                             imgNumber += 1
                 
                 if fingers == [0, 1, 1, 0, 0]:
-                    print(indexFinger)
+                    #print(indexFinger)
                     cv2.circle(currentImg, indexFinger, 12, (0, 0, 255), cv2.FILLED)
 
         # change the statues of buttonPressed
