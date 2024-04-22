@@ -7,6 +7,7 @@ import os
 import sys
 import cv2
 from handDetector import HandDetector
+import numpy as np
 
 # main function
 def main(argv):
@@ -44,6 +45,7 @@ def main(argv):
         # get the image path
         currentImgPath = os.path.join(pptPath, pptImages[imgNumber])
         currentImg = cv2.imread(currentImgPath)
+        currentImg = cv2.resize(currentImg, (width, height))
 
         hands, frame = detector.findHands(frame)
 
@@ -57,7 +59,10 @@ def main(argv):
 
             if lmList:
                 # get the index of index Finger
-                indexFinger = lmList[8][0], lmList[8][1]
+                indexFinger = lmList[8][1], lmList[8][2]
+                # xVal = int(np.interp(lmList[8][1], [width // 2, width], [0, width]))
+                # yVal = int(np.interp(lmList[8][2], [150, height-150], [0, height]))
+                # indexFinger = xVal, yVal
 
                 cx, cy = detector.getCenterIndex()
 
@@ -78,6 +83,7 @@ def main(argv):
                             imgNumber += 1
                 
                 if fingers == [0, 1, 1, 0, 0]:
+                    print(indexFinger)
                     cv2.circle(currentImg, indexFinger, 12, (0, 0, 255), cv2.FILLED)
 
         # change the statues of buttonPressed
