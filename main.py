@@ -35,6 +35,10 @@ def main(argv):
     #10 frame after the previous gesture, we do not accept new gestures
     #otherwise it will apply the gestures too quickly
     duration = 30 
+    # keep track points in gesture4
+    draws = [[]]
+    drawsID = -1
+    drawStart = False
 
     # get hand detector
     detector = HandDetector(min_detection_confidence = 0.8)
@@ -60,6 +64,7 @@ def main(argv):
             if lmList:
                 # get the index of index Finger
                 # indexFinger = lmList[8][1], lmList[8][2]
+                # convert index to half of the screen for easy drawing
                 xVal = int(np.interp(lmList[8][1], [width // 2, width], [0, width]))
                 yVal = int(np.interp(lmList[8][2], [150, height-150], [0, height]))
                 indexFinger = xVal, yVal
@@ -70,21 +75,54 @@ def main(argv):
                 if cy <= threshold:
                     # 1. left, show previous slide
                     if fingers == [1, 0, 0, 0, 0]:
+                        drawStart = False
                         #print("left")
                         if imgNumber > 0:
                             buttonPressed = True
                             imgNumber -= 1
+                            # reset the draw
+                            draws = [[]]
+                            drawsID = -1
 
                     # 2. right, show next slide
                     if (fingers == [0, 0, 0, 0, 1]):
                         #print("right")
+                        drawStart = False
                         if imgNumber < len(pptImages) - 1:
                             buttonPressed = True
                             imgNumber += 1
-                
+                            # reset the draw
+                            draws = [[]]
+                            drawsID = -1
+                        
+                # 3. highlight
                 if fingers == [0, 1, 1, 0, 0]:
                     #print(indexFinger)
                     cv2.circle(currentImg, indexFinger, 12, (0, 0, 255), cv2.FILLED)
+
+
+                # 4. draw
+                if fingers == [0, 1, 0, 0, 0]:
+                    # start the new draws
+                    if drawStart is False:
+                        drawStart = True
+                        drawsID += 1
+                        draws.append([])
+                    cv2.circle(currentImg, indexFinger, 12, (0, 0, 255), cv2.FILLED)
+                    draws[drawsID].append(indexFinger)
+                else:
+                    drawStart = False
+
+
+                # 5. remove the last one draws
+                if fingers == [0, 1, 1, 1, 0]:
+                    if draws:
+                        draws.pop(-1)
+                        drawsID -= 1
+                        buttonPressed = True
+        else:
+            drawStart = False    
+
 
         # change the statues of buttonPressed
         if buttonPressed:
@@ -94,10 +132,17 @@ def main(argv):
                 buttonPressed = False
 
 
+        for i in range(len(draws)):
+            for j in range(len(draws[i])):
+                if j != 0:
+                    cv2.line(currentImg, draws[i][j - 1], draws[i][j], (0, 0, 200), 10)
+
+
         # resize and rearrange the windows
         frameSmall = cv2.resize(frame, (width2, height2))
         h,w,_ = currentImg.shape
         currentImg[0:height2, w-width2:w] = frameSmall # put the video on the right corner of ppt
+
 
         cv2.imshow("frame", frame)
         cv2.imshow("ppt", currentImg)
