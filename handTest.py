@@ -22,11 +22,9 @@ while True:
     fingers = detector.fingersUp(frame=frame)
     #print(fingers)
 
-    center = detector.getCenterIndex()
-    if center:
-        cx, cy = center
-        print(cx)
-        print(cy)
+    cx, cy = detector.getCenterIndex()
+    print(cx)
+    print(cy)
 
 
     if cv2.waitKey(1) & 0xFF == ord('q'):

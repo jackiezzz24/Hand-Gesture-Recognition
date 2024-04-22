@@ -40,7 +40,7 @@ def main(argv):
 
     while True:
         success, frame = cap.read()
-        #frame = cv2.flip(frame, 1)
+        frame = cv2.flip(frame, 1)
         # get the image path
         currentImgPath = os.path.join(pptPath, pptImages[imgNumber])
         currentImg = cv2.imread(currentImgPath)
@@ -53,10 +53,13 @@ def main(argv):
             hand = hands[0]
             # check how many fingers are up
             fingers = detector.fingersUp(frame)
+            lmList = detector.lmList
 
-            center = detector.getCenterIndex()
-            if center:
-                cx, cy = center
+            if lmList:
+                # get the index of index Finger
+                indexFinger = lmList[8][0], lmList[8][1]
+
+                cx, cy = detector.getCenterIndex()
 
                 # only check the hand when it is above the threshold
                 if cy <= threshold:
@@ -73,6 +76,9 @@ def main(argv):
                         if imgNumber < len(pptImages) - 1:
                             buttonPressed = True
                             imgNumber += 1
+                
+                if fingers == [0, 1, 1, 0, 0]:
+                    cv2.circle(currentImg, indexFinger, 12, (0, 0, 255), cv2.FILLED)
 
         # change the statues of buttonPressed
         if buttonPressed:

@@ -66,7 +66,7 @@ class HandDetector:
     
     def getCenterIndex(self):
         if not self.lmList:
-            return None
+            return 0, 0
 
         sum_x = sum_y = 0
         for lm in self.lmList:
