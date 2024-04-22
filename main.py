@@ -6,7 +6,7 @@
 import os
 import sys
 import cv2
-from cvzone.HandTrackingModule import HandDetector
+from handDetector import HandDetector
 
 # main function
 def main(argv):
@@ -36,7 +36,7 @@ def main(argv):
     duration = 30 
 
     # get hand detector
-    detector = HandDetector(detectionCon=0.8, maxHands=1)
+    detector = HandDetector(min_detection_confidence = 0.8)
 
     while True:
         success, frame = cap.read()
@@ -52,25 +52,27 @@ def main(argv):
         if hands and buttonPressed is False:
             hand = hands[0]
             # check how many fingers are up
-            fingers = detector.fingersUp(hand)
-            centerX, centerY = hand['center']
-            # print(fingers)
+            fingers = detector.fingersUp(frame)
 
-            # only check the hand when it is above the threshold
-            if centerY <= threshold:
-                # 1. left, show previous slide
-                if fingers == [1, 0, 0, 0, 0]:
-                    # print("left")
-                    if imgNumber > 0:
-                        buttonPressed = True
-                        imgNumber -= 1
+            center = detector.getCenterIndex()
+            if center:
+                cx, cy = center
 
-                # 2. right, show next slide
-                if (fingers == [0, 0, 0, 0, 1]):
-                    # print("right")
-                    if imgNumber < len(pptImages) - 1:
-                        buttonPressed = True
-                        imgNumber += 1
+                # only check the hand when it is above the threshold
+                if cy <= threshold:
+                    # 1. left, show previous slide
+                    if fingers == [1, 0, 0, 0, 0]:
+                        print("left")
+                        if imgNumber > 0:
+                            buttonPressed = True
+                            imgNumber -= 1
+
+                    # 2. right, show next slide
+                    if (fingers == [0, 0, 0, 0, 1]):
+                        print("right")
+                        if imgNumber < len(pptImages) - 1:
+                            buttonPressed = True
+                            imgNumber += 1
 
         # change the statues of buttonPressed
         if buttonPressed:
