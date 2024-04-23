@@ -26,7 +26,7 @@ class LeapGestRecog(Dataset):
             for dirpath, dirnames, filenames in os.walk(os.path.join(root, folder)):
                 for filename in filenames:
                     self.x.append(os.path.join(dirpath, filename))
-                    self.y.append(int(folder))  # Convert folder name to integer
+                    self.y.append(int(folder))  
         self.len = len(self.x)
 
     def __len__(self):
@@ -146,8 +146,8 @@ def test_loop(dataloader, model, loss_fn):
 
 # main function 
 def main(argv):
+    
     # get data set 
-
     root = './leapGestRecog/'
     transform = transforms.Compose([transforms.Resize((128, 128)), transforms.ToTensor()])
     dataset = LeapGestRecog(root, transform=transform)
