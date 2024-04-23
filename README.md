@@ -2,7 +2,7 @@
 
 Authors: Jiaqi Zhao, Kexuan Chen, Zhimin Liang
 
-# Project Description 
+## Project Description 
 
 This project proposes a Dynamic Hand Gesture Recognition System Application designed to revolutionize the way presentations are delivered by enabling gesture-controlled navigation and interaction with PowerPoint slides. Leveraging computer vision techniques with OpenCV, the system detects and interprets hand gestures captured by a webcam in real-time, translating them into commands to navigate through slides. In this project, five specific gestures are targeted: navigating to the previous slide, navigating to the next slide, moving the pointer, drawing/highlighting, and deleting drawings. By offering a more natural and immersive interaction experience, our system enhances presenter-audience engagement and facilitates dynamic and engaging presentations.
 
