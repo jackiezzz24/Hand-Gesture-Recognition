@@ -158,7 +158,7 @@ def main(argv):
 
     learning_rate = 1e-2    
     batch_size = 64
-    epochs = 5
+    epochs = 10
 
     # create data loaders
     train_loader = DataLoader(train_dataset, batch_size, shuffle=True)
