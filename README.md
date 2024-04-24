@@ -39,4 +39,3 @@ Run the video.py to see the demo using CNN model
 + link to the dataset: https://www.kaggle.com/datasets/gti-upm/leapgestrecog
 + Link to the presentation: https://docs.google.com/presentation/d/1xRxHIItC6WE2nR0kjdnhXeszH_jcaiEDrWW2PPPUIck/edit?usp=sharing
 + Link to the demo video:
-+ Link to the report: https://www.overleaf.com/read/htgvdbcwpnyn#f6499a
