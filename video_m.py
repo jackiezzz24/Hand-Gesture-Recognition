@@ -32,7 +32,8 @@ def show_video(model_path, device='cpu'):
     duration = 30 
 
     # show video
-    cap = cv2.VideoCapture(0) #specify 0 or 1, 1 works for my mac 
+    # cap = cv2.VideoCapture(0) #specify 0 or 1, 1 works for my mac 
+    cap = cv2.VideoCapture("http://192.168.0.15:4747/mjpegfeed?640x480")
     cap.set(3,width)
     cap.set(4,height)
     if not cap.isOpened():
