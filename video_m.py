@@ -87,20 +87,20 @@ def show_video(model_path, device='cpu'):
                 _, predicted_label = predictions.max(1)
                 predicted_gesture = classes[predicted_label.item()]
 
-            cv2.putText(frame, f'Predicted: {predicted_gesture}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+            # cv2.putText(frame, f'Predicted: {predicted_gesture}', (70, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 5)
 
             if buttonPressed is False:
                 # 1. show next slide
                 if predicted_gesture == 'C':
                     # display prediction in the video
-                    # cv2.putText(frame, f'Predicted: {predicted_gesture}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    cv2.putText(frame, f'Predicted: {predicted_gesture}', (70, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 5)
                     if imgNumber < len(pptImages) - 1:
                         buttonPressed = True
                         imgNumber += 1
 
                 # 2. show previous slide
                 if predicted_gesture == 'Palm':
-                    # cv2.putText(frame, f'Predicted: {predicted_gesture}', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    cv2.putText(frame, f'Predicted: {predicted_gesture}', (70, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 5)
                     if imgNumber > 0:
                         buttonPressed = True
                         imgNumber -= 1
