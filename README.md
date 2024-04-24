@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ## How to run the program
 
-Run the main.py to see the final demo 
+Run the main.py to see the final demo with mediapipe
 
 + In the terminal, type `python main.py`
 
@@ -33,6 +33,10 @@ Run the test.py to test the trained model
 
 + In the terminal, type `python test.py`
 
+Run the video.py to see the demo using CNN model
+
++ In the terminal, type `python video.py`
+
 
 ## Links 
 
@@ -40,4 +44,4 @@ Run the test.py to test the trained model
 
 + Link to the presentation: https://docs.google.com/presentation/d/1xRxHIItC6WE2nR0kjdnhXeszH_jcaiEDrWW2PPPUIck/edit?usp=sharing
 
-+ Link to the video: 
++ Link to the demo video: 

@@ -1,12 +1,17 @@
+# Name: Jiaqi Zhao, Kexuan Chen, Zhimin Liang
+# Date: April 9th
+# 
+# show video using CNN model
+
+# import statements
+
 import os
-import sys
 import torch
-import torchvision
 from PIL import Image
 from torch.utils.data import DataLoader
 from torchvision import transforms
 import matplotlib.pyplot as plt
-from model import MyNetwork  # Assuming the model is in a file named model.py
+from model import MyNetwork  
 import cv2
 import numpy as np
 import torch.nn.functional as F
@@ -29,10 +34,9 @@ def show_video(model_path, device='cpu'):
     imgNumber = 0
     buttonPressed = False
     buttonCounter = 0
-    duration = 30 
+    duration = 50 
 
     # show video
-    # cap = cv2.VideoCapture(0) #specify 0 or 1, 1 works for my mac 
     cap = cv2.VideoCapture("http://192.168.0.15:4747/mjpegfeed?640x480")
     cap.set(3,width)
     cap.set(4,height)
@@ -46,8 +50,6 @@ def show_video(model_path, device='cpu'):
             currentImgPath = os.path.join(pptPath, pptImages[imgNumber])
             currentImg = cv2.imread(currentImgPath)
             currentImg = cv2.resize(currentImg, (width, height))
-
-
 
             # ret indicate whether it capture successfully
             ret, frame = cap.read()
@@ -122,9 +124,6 @@ def show_video(model_path, device='cpu'):
 
             cv2.imshow("frame", frame)
             cv2.imshow("ppt", currentImg)
-
-
-
 
             if cv2.waitKey(1) == ord('q'):
                 break
